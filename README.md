@@ -46,53 +46,52 @@ document.addEventListener("mousemove", function(mouse){
 
 ## Options
 
-### `my` - [`PositionAlignment`][pa]
+### my: [`Alignment`][alignment]
 
 The location on the `target` to position from
 
-### `at` - [`PositionAlignment`][pa]
+### at: [`Alignment`][alignment]
 
 The location on the `anchor` to position against
 
-### `anchor` - `HTMLElement` OR `MouseEvent`
+### anchor: `HTMLElement` OR `MouseEvent`
 
 The element or mouse event to anchor our target to
 
-### `target` - `HTMLElement`
+### target: `HTMLElement`
 
 The target that we're going to be positioning
 
-### `collision?` - [`PositionCollision`][pc]
+### collision?: [`CollisionHandler`][cH]
 
-How to handle collisions with the window edge
-
+How to handle collisions with the window edge  
 **Default:** `bestFit`
 
-### `bestFitPreference?` - `horizontal` OR `vertical`
+### bestFitPreference?: `horizontal` OR `vertical`
 
-This is the preferred "best" direction when `collision = bestFit` and there is a "best fit" horizontally and vertically
-
+This is the preferred "best" direction when `collision = bestFit` and there is a "best fit" horizontally and vertically  
 **Default:** `horizontal`
 
-### `defaults?` - `{ my, at }`
+### defaults?: `{ my: `[`alignment`][alignment]`, at: `[`alignment`][alignment]` }`
 
-The fallback when only one property is supplied or the property supplied is invalid
-
+The fallback values when only one property is supplied, or the property supplied is invalid  
 **Default:** `{ my: "top center", at: "bottom center" }`
 
 ## Types
 
-### The `PositionAlignment` type
+### The `Alignment` type
 
-The `PositionAlignment` will allow any of the below, plus a combination in the form `vertical horizontal` (e.g. `top center`, `bottom right` or `center left`)
+The `Alignment` will allow any of the below, plus a combination in the form `vertical horizontal` (e.g. `top center`, `bottom right` or `center left`)
 
--   "top"
--   "bottom"
--   "center"
--   "left"
--   "right"
+-   `top`
+-   `bottom`
+-   `center`
+-   `left`
+-   `right`
 
-### The `PositionCollision` type
+Using a single value will default the other to `center` so `left` == `center left`
+
+### The `CollisionHandler` type
 
 -   `bestFit`
     -   This will find the closest fit before trying to flip the element
@@ -101,5 +100,5 @@ The `PositionAlignment` will allow any of the below, plus a combination in the f
 -   `ignore`
     -   This will just ignore any collisions and place the element exactly where you wanted it
 
-[pa]: #The-PositionAlignment-type
-[pc]: #The-PositionCollision-type
+[alignment]: #the-alignment-type
+[cH]: #the-collisionhandler-type
