@@ -11,18 +11,6 @@ export default [
                 compact: false,
                 name: 'TopMarksDevelopment',
             },
-            {
-                file: 'lib/index.cjs',
-                format: 'cjs',
-                sourcemap: true,
-                compact: false,
-            },
-            {
-                file: 'lib/index.m.js',
-                format: 'es',
-                sourcemap: true,
-                compact: false,
-            },
         ],
         plugins: [rollupTypescript(), terser()],
     },
@@ -35,16 +23,28 @@ export default [
                 sourcemap: true,
                 compact: false,
                 name: 'TopMarksDevelopment',
-            },
+            }
+        ],
+        plugins: [rollupTypescript(), terser()],
+    },
+    {
+        input: {
+            ['index']: 'src/index.ts',
+            ['helpers']: 'src/helpers.ts',
+            ['Enumerators/CollisionHandler']: 'src/Enumerators/CollisionHandler.ts'
+        },
+        output: [
             {
-                file: 'lib/helpers.cjs',
-                format: 'cjs',
+                entryFileNames: '[name].m.js',
+                dir: 'lib',
+                format: 'es',
                 sourcemap: true,
                 compact: false,
             },
             {
-                file: 'lib/helpers.m.js',
-                format: 'es',
+                entryFileNames: '[name].cjs',
+                dir: 'lib',
+                format: 'cjs',
                 sourcemap: true,
                 compact: false,
             },
