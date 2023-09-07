@@ -98,6 +98,13 @@ function position(options: IOptions): PositionData {
 
                 parent = parent.parentElement;
             }
+
+            // Finally, adjust for window scroll position
+            const doc = document.documentElement;
+            _anchorRect.y +=
+                (window.scrollY || doc.scrollTop) - (doc.clientTop || 0);
+            _anchorRect.x +=
+                (window.scrollX || doc.scrollLeft) - (doc.clientLeft || 0);
         }
 
         return {
