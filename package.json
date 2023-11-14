@@ -2,7 +2,7 @@
     "name": "@topmarksdevelopment/position",
     "description": "A compact tool to help position an element against another. Similar to JQuery `.position()`",
     "author": "TopMarksDevelopment",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "MIT",
     "exports": {
         ".": {
