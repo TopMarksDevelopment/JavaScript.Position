@@ -66,3 +66,38 @@ describe('HoverPosition (collisions ignored)', () => {
         });
     });
 });
+
+test('Window scroll adjusts output', () => {
+    window.scrollX = 50;
+    window.scrollY = 50;
+    
+    const tP = 'top left',
+        myA = 'top center',
+        atA = 'bottom center';
+    
+    helper.setupTest(tP);
+
+    const pData = position({
+        ...{ debug: true },
+        ...{
+            my: myA,
+            at: atA,
+            target: document.querySelector<HTMLDivElement>(
+                '.target',
+            )!,
+            anchor: document.querySelector<HTMLElement>('.anchor')!,
+            collision: CollisionHandler.ignore,
+        },
+    }) as allData;
+    
+    expect({
+        left: parseInt(pData.left, 10),
+        top: parseInt(pData.top, 10),
+    }).toStrictEqual({
+        left: helper.getLeft(tP, myA, atA) + 50,
+        top: helper.getTop(tP, myA, atA) + 50,
+    });
+    
+    window.scrollX = 50;
+    window.scrollY = 50;
+});
