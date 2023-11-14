@@ -26,11 +26,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2023-11-14
+
+<small>[Compare to previous release][comp:1.0.1]</small>
+
+### Fixed
+
+-   The position data now respects the window scroll position
+-   The package module outputs now includes the collision handler (rather than being bundled)
+
+### Changes
+
+-   Developer dependency bumps (no user-facing changes)
+-   Update publish actions and node versions (no user-facing changes)
+
 ## [1.0.0] - 2022-12-12
 
 **This was the first release**
 
-<!-- [comp:1.0.1]: https://github.com/TopMarksDevelopment/JavaScript.Position/compare/v1.0.0...v1.0.1
-[1.0.1]: https://github.com/TopMarksDevelopment/JavaScript.Position/release/tag/v1.0.1 -->
-
+[comp:1.0.1]: https://github.com/TopMarksDevelopment/JavaScript.Position/compare/v1.0.0...v1.0.1
+[1.0.1]: https://github.com/TopMarksDevelopment/JavaScript.Position/release/tag/v1.0.1
 [1.0.0]: https://github.com/TopMarksDevelopment/JavaScript.Position/release/tag/v1.0.0
