@@ -18,9 +18,8 @@ import { PositionData } from './Types/PositionData';
  * @returns object with a top and left value in the form `{number}px`
  */
 function position(options: IOptions): PositionData {
-    const { _bodyRect, _anchorRect, _targetRect, scrollableParents } = initialisePrivateFields();
-
-    const myPos = Helpers.parse(
+    const { _bodyRect, _anchorRect, _targetRect } = initialisePrivateFields(),
+        myPos = Helpers.parse(
             options.my,
             options.defaults
                 ? Helpers.parse(options.defaults.my)
@@ -44,7 +43,6 @@ function position(options: IOptions): PositionData {
         return {
             left: calculateLeft(myPos, atPos).value.toString() + 'px',
             top: calculateTop(myPos, atPos).value.toString() + 'px',
-            scrollableParents,
             // @ts-ignore
             ...(options.debug === true
                 ? { _bodyRect, _anchorRect, _targetRect }
@@ -57,7 +55,6 @@ function position(options: IOptions): PositionData {
     return {
         top: pos.top.toString() + 'px',
         left: pos.left.toString() + 'px',
-        scrollableParents,
         // @ts-ignore
         ...(options.debug === true
             ? { _bodyRect, _anchorRect, _targetRect }
@@ -81,41 +78,33 @@ function position(options: IOptions): PositionData {
                               return '{}';
                           },
                       }
-                    : options.anchor.getBoundingClientRect();
+                    : options.anchor.getBoundingClientRect(),
+            originalDisplay = options.target.style.display,
+            _targetRect = options.target.getBoundingClientRect();
 
-        const originalDisplay = options.target.style.display;
         options.target.style.display = 'block';
-
-        const _targetRect = options.target.getBoundingClientRect(),
-            scrollableParents : HTMLElement[] = [];
-
         options.target.style.display = originalDisplay;
 
         // Adjust to scrollable regions
         if (options.anchor instanceof HTMLElement) {
-            let parent = options.anchor.parentElement;
-
-            while (parent !== null && parent.tagName !== 'HTML') {
-                // Check if scrollable
-                if (parent.scrollHeight > parent.clientHeight)
-                    scrollableParents.push(parent)
-
-                parent = parent.parentElement;
-            }
-
             // Finally, adjust for window scroll position
             const doc = document.documentElement;
             _anchorRect.y +=
-                (window.scrollY || doc.scrollTop) - (doc.clientTop || 0);
+                (window.scrollY ||
+                    document.documentElement.scrollTop ||
+                    document.body.scrollTop ||
+                    0) - (doc.clientTop || 0);
             _anchorRect.x +=
-                (window.scrollX || doc.scrollLeft) - (doc.clientLeft || 0);
+                (window.scrollX ||
+                    document.documentElement.scrollLeft ||
+                    document.body.scrollLeft ||
+                    0) - (doc.clientLeft || 0);
         }
 
         return {
             _bodyRect,
             _anchorRect,
             _targetRect,
-            scrollableParents
         };
     }
 
