@@ -1,6 +1,6 @@
 # Position (A JavaScript package)
 
-A small package to help position a floating element. This can be positioned relative to another element or to a mouse event.
+A small package to help position a floating element. This can be positioned relative to another elements' current screen position, or to a mouse event.
 
 ### Links
 
