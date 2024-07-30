@@ -26,7 +26,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unpublished
+## [1.0.2] - 2024-07-30
+
+<small>[Compare to previous release][comp:1.0.2]</small>
 
 ### Fixed
 
@@ -50,6 +52,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **This was the first release**
 
+[comp:1.0.2]: https://github.com/TopMarksDevelopment/JavaScript.Position/compare/v1.0.1...v1.0.2
+[1.0.2]: https://github.com/TopMarksDevelopment/JavaScript.Position/release/tag/v1.0.2
 [comp:1.0.1]: https://github.com/TopMarksDevelopment/JavaScript.Position/compare/v1.0.0...v1.0.1
 [1.0.1]: https://github.com/TopMarksDevelopment/JavaScript.Position/release/tag/v1.0.1
 [1.0.0]: https://github.com/TopMarksDevelopment/JavaScript.Position/release/tag/v1.0.0
