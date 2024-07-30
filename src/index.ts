@@ -18,7 +18,7 @@ import { PositionData } from './Types/PositionData';
  * @returns object with a top and left value in the form `{number}px`
  */
 function position(options: IOptions): PositionData {
-    const { _bodyRect, _anchorRect, _targetRect } = initialisePrivateFields();
+    const { _bodyRect, _anchorRect, _targetRect, scrollableParents } = initialisePrivateFields();
 
     const myPos = Helpers.parse(
             options.my,
@@ -44,6 +44,7 @@ function position(options: IOptions): PositionData {
         return {
             left: calculateLeft(myPos, atPos).value.toString() + 'px',
             top: calculateTop(myPos, atPos).value.toString() + 'px',
+            scrollableParents,
             // @ts-ignore
             ...(options.debug === true
                 ? { _bodyRect, _anchorRect, _targetRect }
@@ -56,6 +57,7 @@ function position(options: IOptions): PositionData {
     return {
         top: pos.top.toString() + 'px',
         left: pos.left.toString() + 'px',
+        scrollableParents,
         // @ts-ignore
         ...(options.debug === true
             ? { _bodyRect, _anchorRect, _targetRect }
@@ -84,7 +86,8 @@ function position(options: IOptions): PositionData {
         const originalDisplay = options.target.style.display;
         options.target.style.display = 'block';
 
-        const _targetRect = options.target.getBoundingClientRect();
+        const _targetRect = options.target.getBoundingClientRect(),
+            scrollableParents : HTMLElement[] = [];
 
         options.target.style.display = originalDisplay;
 
@@ -93,8 +96,9 @@ function position(options: IOptions): PositionData {
             let parent = options.anchor.parentElement;
 
             while (parent !== null && parent.tagName !== 'HTML') {
-                _anchorRect.y += parent.scrollTop;
-                _anchorRect.x += parent.scrollLeft;
+                // Check if scrollable
+                if (parent.scrollHeight > parent.clientHeight)
+                    scrollableParents.push(parent)
 
                 parent = parent.parentElement;
             }
@@ -111,6 +115,7 @@ function position(options: IOptions): PositionData {
             _bodyRect,
             _anchorRect,
             _targetRect,
+            scrollableParents
         };
     }
 
