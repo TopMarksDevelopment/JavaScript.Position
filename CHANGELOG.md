@@ -32,6 +32,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Position is once again changed if there's overflow (settings permitted)
 
+### Changed
+
+-   Added new overflow test and tweaked other tests
+
 ## [1.0.2] - 2024-07-30
 
 <small>[Compare to previous release][comp:1.0.2]</small>
