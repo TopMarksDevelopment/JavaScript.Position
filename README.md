@@ -1,5 +1,7 @@
 # Position (A JavaScript package)
 
+[![The result of the latest test run](https://github.com/TopMarksDevelopment/JavaScript.Position/actions/workflows/tests.yml/badge.svg)](https://github.com/TopMarksDevelopment/JavaScript.Position/actions/workflows/tests.yml)
+
 A small package to help position a floating element. This can be positioned relative to another elements' current screen position, or to a mouse event.
 
 ### Links
