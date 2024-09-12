@@ -70,6 +70,7 @@ export class Helper {
         tP: CombinedAlignment,
         my?: CombinedAlignment,
         at?: CombinedAlignment,
+        onCollision?: (input: number) => number,
     ) {
         let left = 0;
 
@@ -116,18 +117,16 @@ export class Helper {
             }
         }
 
-        if (this.collision === CollisionHandler.ignore) {
-            return left;
-        }
-
-        // Work on collision
-        return left;
+        return this.collision !== CollisionHandler.ignore && onCollision
+            ? onCollision(left)
+            : left;
     }
 
     getTop(
         tP: CombinedAlignment,
         my?: CombinedAlignment,
         at?: CombinedAlignment,
+        onCollision?: (input: number) => number,
     ) {
         let top = 0;
 
@@ -180,12 +179,9 @@ export class Helper {
             }
         }
 
-        if (this.collision === CollisionHandler.ignore) {
-            return top;
-        }
-
-        // Work on collision
-        return top;
+        return this.collision !== CollisionHandler.ignore && onCollision
+            ? onCollision(top)
+            : top;
     }
 
     /**
