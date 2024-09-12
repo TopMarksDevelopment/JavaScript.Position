@@ -1,5 +1,4 @@
 import { CollisionHandler, CombinedAlignment, position } from '../src/index';
-// @ts-ignore
 import { allData, Helper, SizeData } from './Helpers';
 
 const windowSize: SizeData = {
@@ -30,18 +29,16 @@ const windowSize: SizeData = {
 helper.setupEnvironment(windowSize);
 
 describe('HoverPosition (collisions ignored)', () => {
-    // Add base style
-
     describe.each(positionArray)('Target Position: %s', (tP) => {
-        describe.each(positionArray)('options.my: %s', (myAlignment) => {
-            test.each(positionArray)('options.at: %s', (atAlignment) => {
+        describe.each(positionArray)('options.my: %s', (myPlacement) => {
+            test.each(positionArray)('options.at: %s', (atPlacement) => {
                 helper.setupTest(tP);
 
                 const pData = position({
                     ...{ debug: true },
                     ...{
-                        my: myAlignment,
-                        at: atAlignment,
+                        my: myPlacement,
+                        at: atPlacement,
                         target: document.querySelector<HTMLDivElement>(
                             '.target',
                         )!,
@@ -49,18 +46,13 @@ describe('HoverPosition (collisions ignored)', () => {
                         collision: CollisionHandler.ignore,
                     },
                 }) as allData;
-                /*
-                console.log(
-                    `${tP}|${myAlignment}|${atAlignment}`,
-                    pData,
-                );
-                */
+
                 expect({
                     left: parseInt(pData.left, 10),
                     top: parseInt(pData.top, 10),
                 }).toStrictEqual({
-                    left: helper.getLeft(tP, myAlignment, atAlignment),
-                    top: helper.getTop(tP, myAlignment, atAlignment),
+                    left: helper.getLeft(tP, myPlacement, atPlacement),
+                    top: helper.getTop(tP, myPlacement, atPlacement),
                 });
             });
         });
@@ -68,36 +60,37 @@ describe('HoverPosition (collisions ignored)', () => {
 });
 
 test('Window scroll adjusts output', () => {
+    // Set the window scroll position
     window.scrollX = 50;
     window.scrollY = 50;
-    
-    const tP = 'top left',
-        myA = 'top center',
-        atA = 'bottom center';
-    
-    helper.setupTest(tP);
+
+    const targetWindowPosition = 'top left',
+        myPlacement = 'top center',
+        atPlacement = 'bottom center';
+
+    helper.setupTest(targetWindowPosition);
 
     const pData = position({
         ...{ debug: true },
         ...{
-            my: myA,
-            at: atA,
-            target: document.querySelector<HTMLDivElement>(
-                '.target',
-            )!,
+            my: myPlacement,
+            at: atPlacement,
+            target: document.querySelector<HTMLDivElement>('.target')!,
             anchor: document.querySelector<HTMLElement>('.anchor')!,
             collision: CollisionHandler.ignore,
         },
     }) as allData;
-    
+
     expect({
         left: parseInt(pData.left, 10),
         top: parseInt(pData.top, 10),
     }).toStrictEqual({
-        left: helper.getLeft(tP, myA, atA) + 50,
-        top: helper.getTop(tP, myA, atA) + 50,
+        left:
+            helper.getLeft(targetWindowPosition, myPlacement, atPlacement) + 50,
+        top: helper.getTop(targetWindowPosition, myPlacement, atPlacement) + 50,
     });
-    
-    window.scrollX = 50;
-    window.scrollY = 50;
+
+    // Reset the window scroll position
+    window.scrollX = 0;
+    window.scrollY = 0;
 });

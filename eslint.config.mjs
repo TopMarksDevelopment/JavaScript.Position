@@ -88,7 +88,7 @@ export default [
             'no-floating-decimal': 'warn',
             'no-global-assign': 'warn',
             'no-implicit-coercion': 'warn',
-            'no-implicit-globals': 'warn',
+            'no-implicit-globals': 'off',
             'no-implied-eval': 'warn',
             'no-invalid-this': 'off',
             'no-iterator': 'warn',

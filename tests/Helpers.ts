@@ -63,6 +63,7 @@ export class Helper {
         div.style.height = `${this.targetSize.height}px`;
         div.style.width = `${this.targetSize.width}px`;
         div.style.position = 'absolute';
+        div.style.display = 'none';
         document.body.insertAdjacentElement('beforeend', div);
     }
 
@@ -70,6 +71,7 @@ export class Helper {
         tP: CombinedAlignment,
         my?: CombinedAlignment,
         at?: CombinedAlignment,
+        onCollision?: (input: number) => number,
     ) {
         let left = 0;
 
@@ -116,18 +118,16 @@ export class Helper {
             }
         }
 
-        if (this.collision === CollisionHandler.ignore) {
-            return left;
-        }
-
-        // Work on collision
-        return left;
+        return this.collision !== CollisionHandler.ignore && onCollision
+            ? onCollision(left)
+            : left;
     }
 
     getTop(
         tP: CombinedAlignment,
         my?: CombinedAlignment,
         at?: CombinedAlignment,
+        onCollision?: (input: number) => number,
     ) {
         let top = 0;
 
@@ -180,12 +180,9 @@ export class Helper {
             }
         }
 
-        if (this.collision === CollisionHandler.ignore) {
-            return top;
-        }
-
-        // Work on collision
-        return top;
+        return this.collision !== CollisionHandler.ignore && onCollision
+            ? onCollision(top)
+            : top;
     }
 
     /**
@@ -216,16 +213,17 @@ export class Helper {
 
         targetEl!.getBoundingClientRect = jest.fn(() => {
             const top = 0,
-                left = 0;
+                left = 0,
+                hiddenSize = targetEl?.style.display === 'none' ? 0 : null;
 
             return {
                 x: left,
                 y: top,
-                width: this.targetSize.width,
-                height: this.targetSize.height,
+                width: hiddenSize ?? this.targetSize.width,
+                height: hiddenSize ?? this.targetSize.height,
                 top: top,
-                right: left + this.targetSize.width,
-                bottom: top + this.targetSize.height,
+                right: left + (hiddenSize ?? this.targetSize.width),
+                bottom: top + (hiddenSize ?? this.targetSize.height),
                 left: left,
                 toJSON: () => '{}',
             };
