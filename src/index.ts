@@ -79,10 +79,10 @@ function position(options: IOptions): PositionData {
                           },
                       }
                     : options.anchor.getBoundingClientRect(),
-            originalDisplay = options.target.style.display,
-            _targetRect = options.target.getBoundingClientRect();
+            originalDisplay = options.target.style.display;
 
         options.target.style.display = 'block';
+        const _targetRect = options.target.getBoundingClientRect();
         options.target.style.display = originalDisplay;
 
         // Adjust to scrollable regions
