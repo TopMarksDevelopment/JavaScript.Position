@@ -24,8 +24,7 @@ const windowSize: SizeData = {
         'bottom center',
         'bottom right',
     ],
-    helper = new Helper(CollisionHandler.ignore, anchorSize, targetSize),
-    collisionHandler: (input: number) => number = (input) => input + 50;
+    helper = new Helper(CollisionHandler.ignore, anchorSize, targetSize);
 
 helper.setupEnvironment(windowSize);
 
@@ -86,18 +85,9 @@ test('Window scroll adjusts output', () => {
         left: parseInt(pData.left, 10),
         top: parseInt(pData.top, 10),
     }).toStrictEqual({
-        left: helper.getLeft(
-            targetWindowPosition,
-            myPlacement,
-            atPlacement,
-            collisionHandler,
-        ),
-        top: helper.getTop(
-            targetWindowPosition,
-            myPlacement,
-            atPlacement,
-            collisionHandler,
-        ),
+        left:
+            helper.getLeft(targetWindowPosition, myPlacement, atPlacement) + 50,
+        top: helper.getTop(targetWindowPosition, myPlacement, atPlacement) + 50,
     });
 
     // Reset the window scroll position

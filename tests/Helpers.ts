@@ -63,6 +63,7 @@ export class Helper {
         div.style.height = `${this.targetSize.height}px`;
         div.style.width = `${this.targetSize.width}px`;
         div.style.position = 'absolute';
+        div.style.display = 'none';
         document.body.insertAdjacentElement('beforeend', div);
     }
 
@@ -212,16 +213,17 @@ export class Helper {
 
         targetEl!.getBoundingClientRect = jest.fn(() => {
             const top = 0,
-                left = 0;
+                left = 0,
+                hiddenSize = targetEl?.style.display === 'none' ? 0 : null;
 
             return {
                 x: left,
                 y: top,
-                width: this.targetSize.width,
-                height: this.targetSize.height,
+                width: hiddenSize ?? this.targetSize.width,
+                height: hiddenSize ?? this.targetSize.height,
                 top: top,
-                right: left + this.targetSize.width,
-                bottom: top + this.targetSize.height,
+                right: left + (hiddenSize ?? this.targetSize.width),
+                bottom: top + (hiddenSize ?? this.targetSize.height),
                 left: left,
                 toJSON: () => '{}',
             };
